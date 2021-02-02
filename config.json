@@ -1,1 +1,9 @@
-[]
+[{
+    "identity":{
+        "username":"",
+        "password":""
+    },
+    "channels":[
+        "Jin_Cat"
+    ]
+}]
