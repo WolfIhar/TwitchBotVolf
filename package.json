@@ -1,0 +1,19 @@
+{
+  "name": "twitchbotvolf",
+  "version": "0.0.1",
+  "description": "My twich bot. Link on Twitch : 'https://www.twitch.tv/jin_cat'. Follows my.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WolfIhar/TwitchBotVolf.git"
+  },
+  "author": "WolfIhar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WolfIhar/TwitchBotVolf/issues"
+  },
+  "homepage": "https://github.com/WolfIhar/TwitchBotVolf#readme"
+}
