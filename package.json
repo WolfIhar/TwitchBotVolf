@@ -1,10 +1,10 @@
 {
   "name": "twitchbotvolf",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "My twich bot. Link on Twitch : 'https://www.twitch.tv/jin_cat'. Follows my.",
   "main": "index.js",
   "scripts": {
-    "start":"node index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
