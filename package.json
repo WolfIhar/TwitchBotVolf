@@ -1,6 +1,6 @@
 {
   "name": "twitchbotvolf",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "My twich bot. Link on Twitch : 'https://www.twitch.tv/jin_cat'. Follows my.",
   "main": "index.js",
   "scripts": {
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/WolfIhar/TwitchBotVolf/issues"
   },
-  "homepage": "https://github.com/WolfIhar/TwitchBotVolf#readme"
+  "homepage": "https://github.com/WolfIhar/TwitchBotVolf#readme",
+  "dependencies": {
+    "tmi.js": "^1.7.1"
+  }
 }
