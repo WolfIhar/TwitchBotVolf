@@ -1,7 +1,8 @@
 const tmi = require('tmi.js'),
 fs = require('fs'),
 options = JSON.parse(fs.readFileSync('config.json')),
-client = new tmi.client(options)
+client = new tmi.client(options),
+ball = require('./src/8ball')
 
 //Time
 let time = [{
@@ -17,4 +18,4 @@ client.connect().then((data)=>{
     console.log(`${err}`)
 })
 
-setInterval(setTime, 1000)
+
