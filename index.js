@@ -3,7 +3,8 @@ fs = require('fs'),
 options = JSON.parse(fs.readFileSync('config.json')),
 client = new tmi.client(options),
 ball = require('./src/8ball'),
-comands = JSON.parse(fs.readFileSync('comands.json'))
+comands = JSON.parse(fs.readFileSync('comands.json')),
+cmds = require('./src/commands')
 
 //Time
 let time = [{
@@ -41,21 +42,26 @@ function onMessageHandler(chanal,userInfo,msg,self){
 
     commandName = commandName.split(' ')
 
-    if(commandName.length >= 2) doudleMessageHandler(chanal,usInf,commandName)
-    else sindleMessageHandler(chanal,usInf,commandName)
+    if(commandName.length >= 2) doudleMessageHandler(chanal,usInf.username,commandName)
+    else sindleMessageHandler(chanal,usInf.username,commandName)
 
 
 }
 
 function doudleMessageHandler (chanal,usInf,commandName){
-    let cmd = comands.map((obj)=>{
-        if(obj.messageType == 'double')
-        return obj
-    })
-
-
+    switch(commandName[0]){
+        case '!8ball':
+            client.say(chanal,ball(usInf))
+            break
+        case '!swap':
+            client.say(chanal,cmds.exchengCoin(commandName[2],usInf,commandName[1]))
+            break
+    }
 }
 
 function sindleMessageHandler (chanal,usInf,commandName){
-    
+    let cmd = comands.map((obj)=>{
+        if(obj.nameComand == commandName[0])
+        if(obj.use == true) return obj
+    })
 }

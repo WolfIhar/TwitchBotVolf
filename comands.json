@@ -1,7 +1,5 @@
 [{
-    "messageType":"",
     "nameComand": "",
     "use": true,
-    "messageTrue": "",
-    "messageFalse":""
+    "messageTrue": ""
 }]
