@@ -20,11 +20,13 @@ client.connect().then((data)=>{
     console.log(`${err}`)
 })
 
+setInterval(time = cmds.getTime(time),1000)
+
 //Join the chat
 /*
 client.on('join',(channel,userName,self)=>{
     if (getJoin(username))
-        client.action("Jin_Cat", '@' + username + ", рад видеть тебя в чате!");
+        client.action(channel, '@' + username + ", рад видеть тебя в чате!");
 })
 */
 
@@ -60,8 +62,16 @@ function doudleMessageHandler (chanal,usInf,commandName){
 }
 
 function sindleMessageHandler (chanal,usInf,commandName){
-    let cmd = comands.map((obj)=>{
-        if(obj.nameComand == commandName[0])
-        if(obj.use == true) return obj
-    })
+    switch(commandName[0]){
+        case '!dust':
+            client.say(chanal,cmds.infoDust(usInf))
+            break
+        case 'time':
+            client.say(chanal,cmds.infoTime(time))
+            break
+        default:
+            let sCom = cmds.singleCommand(comands,commandName[0])
+            if('' !== sCom) client.say(chanal,sCom)
+            break
+    }
 }
