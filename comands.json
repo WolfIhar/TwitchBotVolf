@@ -1,5 +1,41 @@
 [{
-    "nameComand": "",
+    "nameComand": "!test",
     "use": true,
-    "message": ""
-}]
+    "message": "Test"
+},
+{
+    "nameComand":"!vk",
+    "use":true,
+    "message":"Не знаю зачем он вам, но раз уж ввели то вот : https://vk.com/jin_kat"
+},
+{
+    "nameComand":"!inst",
+    "use":true,
+    "message":"Вот ссылка: https://instagram.com/cartabnyov/"
+},
+{
+    "nameComand":"!ds",
+    "use":true,
+    "message":"Я обитаю на разных серверах. Вот один из : LINK"
+},
+{
+    "nameComand":"!8ball",
+    "use":true,
+    "message":"Я могу предсказать твою судьбу! Задавай вопрос [!8ball ~вопрос~]"
+},
+{
+    "nameComand":"!swap",
+    "use":true,
+    "message":"Используется для передачи волшебной пыли другому пользователю! [!sawp ~пользователь~ ~количество~]"
+},
+{
+    "nameComand":"!dust",
+    "use":false,
+    "message":"Проверка поличество волшебной пыли"
+},
+{
+    "nameComand":"!time",
+    "use":false,
+    "message":"Сколько идет стрим"
+}
+]

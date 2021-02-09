@@ -38,10 +38,10 @@ module.exports = {
         console.log(`Create New user ${userInfo.username}`)
     },
     //Accrual of dust in user
-    accrualOfDust : function(userInfo){
+    accrualOfDust : function(userInfo,coin){
         let userAll = JSON.parse(fs.readFileSync('./user.json'))
         let userFind = userAll.find(value => value.userName == userInfo.username)
-        if(userFind.role !== 'admin') userAll[userFind.id].coin += 1
+        if(userFind.role !== 'admin') userAll[userFind.id].coin += coin
         fs.writeFileSync('user.json', JSON.stringify(userAll), 'utf8')
     },
     // !dust 
@@ -76,7 +76,31 @@ module.exports = {
     // Infomation on time
     infoTime : function(time){
         return `Стрим идет: 🕛 ${(time.hour < 9) ? "0" + time.hour : time.hour}:${(time.minutes < 9) ? "0" + time.minutes : time.minutes}:${(time.seconds < 9) ? "0" + time.seconds : time.seconds}`
+    },
+    // User went to stream
+    addJoinerUser : function(nameUser){
+        if( nameUser == 'Jin_Kat') return
+        let userJoinStream = JSON.parse(fs.readFileSync('./userJoin.json'))
+        userJoinStream.push({id:userJoinStream.length ,userName: nameUser})
+        fs.writeFileSync('userJoin.json', JSON.stringify(userJoinStream), 'utf8')
+    },
+    //User exit to stream
+    removeExitingUser : function(nameUser){
+        if( nameUser == 'Jin_Kat') return
+        let userJoinStream = JSON.parse(fs.readFileSync('./userJoin.json'))
+        let userRemove = userJoinStream.find(value => value.userName == nameUser)
+        if(userRemove !== undefined)
+        userJoinStream.splice(userRemove.id,1)
+
+        fs.writeFileSync('userJoin.json', JSON.stringify(userJoinStream), 'utf8')
+    },
+    //Passive dust extraction
+    accrualPerTime : function(){
+        let userJoinStream = JSON.parse(fs.readFileSync('./userJoin.json'))
+        userJoinStream = userJoinStream.map((obj)=>{obj.coin += 10; return obj})
+        fs.writeFileSync('userJoin.json', JSON.stringify(userJoinStream), 'utf8')
     }
+
 
 }
 
