@@ -1,3 +1,5 @@
 [{
-    "ticTime": 15 
+    "ticTime": 15,
+    "costDustInEyes": 400,
+    "chanceDustInEyes": 30
 }]

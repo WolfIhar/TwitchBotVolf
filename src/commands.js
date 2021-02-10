@@ -99,6 +99,32 @@ module.exports = {
         let userJoinStream = JSON.parse(fs.readFileSync('./userJoin.json'))
         userJoinStream = userJoinStream.map((obj)=>{obj.coin += 10; return obj})
         fs.writeFileSync('userJoin.json', JSON.stringify(userJoinStream), 'utf8')
+    },
+    //dust in thr eyes
+    dustInEyes : function(userThrows,userInWhich,costDustInEyes,chanceDustInEyes,func,channal){
+        let userAll = JSON.parse(fs.readFileSync('./user.json'))
+        let userThrowsOne = userAll.find(value => value.userName == userThrows)
+        let userInWhichOne = userAll.find(value => value.userName == userInWhich)
+        if(userThrowsOne == undefined) {
+            func.say(channal,`@${userThrows} тебя нет в базе данных :(`)
+            return
+        }
+        if(userInWhichOne == undefined){
+            func.say(channal,`@${userThrows} ты точно правильно ввел имя жреца? @${userInWhich} нам не известен... "Пока что"`)
+            return
+        }
+        if(userThrowsOne.coin < cost){
+            func.say(channal,`@${userThrows} иди поднакопи еще волшебной пыли`)
+            return
+        }
+        if(chanceDustInEyes >=roll(100)){
+            func.timeout(channal,userInWhich,300,`@${userThrows} кастует на тебя волшебное заклинание "Летучемышиный сглаз". Ты будешь отбиваться 5 минут :)`)
+        } else {
+            func.timeout(channal,userThrows,300,`@${userThrows} кастует на @${userInWhich} волшебное заклинание "Летучемышиный сглаз", но что-то пошло не так... И заклинание скастовалось на тебя:)`)
+        }
+        userAll[userThrowsOne.id].coin -=costDustInEyes
+
+        fs.writeFileSync('user.json', JSON.stringify(userAll), 'utf8')
     }
 
 
@@ -110,4 +136,8 @@ function isAN(value){
     if (value instanceof Number)
     value = value.valueOf();
     return isFinite(value) && value === parseInt(value, 10);
+}
+//Random numder
+function roll(number){
+    return Math.floor(Math.random()*number)+1
 }

@@ -63,6 +63,9 @@ function doudleMessageHandler (chanal,usInf,commandName){
         case '!swap':
             client.say(chanal,cmds.exchengCoin(commandName[2],usInf,commandName[1]))
             break
+        case '!spell':
+            cmds.dustInEyes(usInf,commandName[1],glVr.costDustInEyes,glVr.chanceDustInEyes,client,chanal)
+            break
     }
 }
 
