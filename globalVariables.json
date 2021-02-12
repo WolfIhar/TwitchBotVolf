@@ -2,5 +2,6 @@
     "ticTime": 15,
     "costDustInEyes": 400,
     "chanceDustInEyes": 30,
-    "coin": 1
+    "coin": 1,
+    "coinAccrual": 40
 }

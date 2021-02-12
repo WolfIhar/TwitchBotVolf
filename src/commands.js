@@ -98,9 +98,9 @@ module.exports = {
         fs.writeFileSync('userJoin.json', JSON.stringify(userJoinStream), 'utf8')
     },
     //Passive dust extraction
-    accrualPerTime : function(){
+    accrualPerTime : function(coin){
         let userJoinStream = JSON.parse(fs.readFileSync('./user.json'))
-        userJoinStream = userJoinStream.map((obj)=>{obj.coin += 10; return obj})
+        userJoinStream = userJoinStream.map((obj)=>{if(obj.userRole !== 'admin')obj.coin += coin; return obj})
         fs.writeFileSync('user.json', JSON.stringify(userJoinStream), 'utf8')
     },
     //dust in thr eyes

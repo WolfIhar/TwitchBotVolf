@@ -22,7 +22,7 @@ client.connect().then((data)=>{
 })
 
 setInterval(()=>time = cmds.getTime(time),1000)
-setInterval(cmds.accrualPerTime,(glVr.ticTime*60)*1000)
+setInterval(()=>cmds.accrualPerTime(glVr.coinAccrual),(glVr.ticTime*60)*1000)
 
 
 client.on('join',(channel,username,self)=>{
