@@ -1,5 +1,6 @@
-[{
+{
     "ticTime": 15,
     "costDustInEyes": 400,
-    "chanceDustInEyes": 30
-}]
+    "chanceDustInEyes": 30,
+    "coin": 1
+}

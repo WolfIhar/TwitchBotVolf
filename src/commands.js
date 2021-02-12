@@ -32,16 +32,19 @@ module.exports = {
         let userFind = userAll.find(value => value.userName == userInfo.username)
 
         if(userFind == undefined){
-            userAll.push({ id: `${userAll.length}`, userName: `${userInfo.username}`, userId: userInfo.userid, role: 'user', coin: 5 })
+            userAll.push({ id: `${userAll.length}`, userName: `${userInfo.username}`, userId: userInfo.userid, userRole: 'user', coin: 5 })
         }
+        else return
         fs.writeFileSync('user.json', JSON.stringify(userAll), 'utf8')
         console.log(`Create New user ${userInfo.username}`)
     },
     //Accrual of dust in user
     accrualOfDust : function(userInfo,coin){
+        
         let userAll = JSON.parse(fs.readFileSync('./user.json'))
         let userFind = userAll.find(value => value.userName == userInfo.username)
-        if(userFind.role !== 'admin') userAll[userFind.id].coin += coin
+        if(userFind.userRole !== 'admin') userAll[userFind.id].coin += coin
+        else return
         fs.writeFileSync('user.json', JSON.stringify(userAll), 'utf8')
     },
     // !dust 
@@ -49,8 +52,8 @@ module.exports = {
         let userAll = JSON.parse(fs.readFileSync('./user.json'))
         let userFind = userAll.find(value => value.userName == userInfo.username)
         if(userFind == undefined) return `@${userInfo.username} хммм.... Про тебя нет информации....`
-        if(userFind.role == 'admin') return `@${userInfo.username} склонюсь перед тобой создатель TheIlluminati!`
-        return `@${userFind.username} у тебя ${userFind.coin} волжебной пыли PowerUpR`
+        if(userFind.userRole == 'admin') return `@${userInfo.username} склонюсь перед тобой создатель TheIlluminati!`
+        return `@${userFind.userName} у тебя ${userFind.coin} волжебной пыли PowerUpR`
     },
     //Timer
     getTime : function(time){
@@ -96,9 +99,9 @@ module.exports = {
     },
     //Passive dust extraction
     accrualPerTime : function(){
-        let userJoinStream = JSON.parse(fs.readFileSync('./userJoin.json'))
+        let userJoinStream = JSON.parse(fs.readFileSync('./user.json'))
         userJoinStream = userJoinStream.map((obj)=>{obj.coin += 10; return obj})
-        fs.writeFileSync('userJoin.json', JSON.stringify(userJoinStream), 'utf8')
+        fs.writeFileSync('user.json', JSON.stringify(userJoinStream), 'utf8')
     },
     //dust in thr eyes
     dustInEyes : function(userThrows,userInWhich,costDustInEyes,chanceDustInEyes,func,channal){
@@ -125,9 +128,14 @@ module.exports = {
         userAll[userThrowsOne.id].coin -=costDustInEyes
 
         fs.writeFileSync('user.json', JSON.stringify(userAll), 'utf8')
+    },
+    //Resset userJoin
+    ressetUserJoin : function (){
+        let user = []
+        fs.writeFileSync('userJoin.json', JSON.stringify(user), 'utf8')
     }
 
-
+    
 }
 
 //Type checking

@@ -13,7 +13,7 @@ var time = {
     minutes: 0,
     hour: 0
 }
-
+cmds.ressetUserJoin()
 //Connect to twitch
 client.connect().then((data)=>{
     console.log(`Connected to ${data[0]}:${data[1]}`)
@@ -22,7 +22,7 @@ client.connect().then((data)=>{
 })
 
 setInterval(()=>time = cmds.getTime(time),1000)
-setInterval(cmds.accrualPerTime(),(glVr*60)*1000)
+setInterval(cmds.accrualPerTime,(glVr.ticTime*60)*1000)
 
 
 client.on('join',(channel,username,self)=>{
@@ -37,9 +37,9 @@ client.on('chat',onMessageHandler)
 
 //Main handler messages
 function onMessageHandler(chanal,userInfo,msg,self){
-    console.log(1)
-    accrualOfDust(userInfo.username,1)
     let usInf = JSON.parse(JSON.stringify(userInfo).replace('user-id', 'userid'))
+    cmds.createNewUser(usInf)
+    cmds.accrualOfDust(userInfo,glVr.coin)
     //Ignore bot message
     if(self) return
     //Delete space
@@ -49,8 +49,8 @@ function onMessageHandler(chanal,userInfo,msg,self){
 
     commandName = commandName.split(' ')
 
-    if(commandName.length >= 2) doudleMessageHandler(chanal,usInf.username,commandName)
-    else sindleMessageHandler(chanal,usInf.username,commandName)
+    if(commandName.length >= 2) doudleMessageHandler(chanal,usInf,commandName)
+    else sindleMessageHandler(chanal,usInf,commandName)
 
 
 }
@@ -58,13 +58,13 @@ function onMessageHandler(chanal,userInfo,msg,self){
 function doudleMessageHandler (chanal,usInf,commandName){
     switch(commandName[0]){
         case '!8ball':
-            client.say(chanal,ball(usInf))
+            client.say(chanal,ball(usInf.userName))
             break
         case '!swap':
-            client.say(chanal,cmds.exchengCoin(commandName[2],usInf,commandName[1]))
+            client.say(chanal,cmds.exchengCoin(commandName[2],usInf.userName,commandName[1]))
             break
         case '!spell':
-            cmds.dustInEyes(usInf,commandName[1],glVr.costDustInEyes,glVr.chanceDustInEyes,client,chanal)
+            cmds.dustInEyes(usInf.userName,commandName[1],glVr.costDustInEyes,glVr.chanceDustInEyes,client,chanal)
             break
     }
 }
