@@ -1,5 +1,5 @@
 const fs = require ('fs')
-
+let userJ = 0
 module.exports = {
     //Exchenge is coins
     exchengCoin : function (coin, userNameOne, userNameTwo) {
@@ -84,7 +84,8 @@ module.exports = {
     addJoinerUser : function(nameUser){
         if( nameUser == 'Jin_Kat') return
         let userJoinStream = JSON.parse(fs.readFileSync('./userJoin.json'))
-        userJoinStream.push({id:userJoinStream.length ,userName: nameUser})
+        userJoinStream.push({id:userJ ,userName: nameUser})
+        userJ++
         fs.writeFileSync('userJoin.json', JSON.stringify(userJoinStream), 'utf8')
     },
     //User exit to stream
@@ -94,14 +95,21 @@ module.exports = {
         let userRemove = userJoinStream.find(value => value.userName == nameUser)
         if(userRemove !== undefined)
         userJoinStream.splice(userRemove.id,1)
+        else return
 
         fs.writeFileSync('userJoin.json', JSON.stringify(userJoinStream), 'utf8')
     },
     //Passive dust extraction
     accrualPerTime : function(coin){
-        let userJoinStream = JSON.parse(fs.readFileSync('./user.json'))
-        userJoinStream = userJoinStream.map((obj)=>{if(obj.userRole !== 'admin')obj.coin += coin; return obj})
-        fs.writeFileSync('user.json', JSON.stringify(userJoinStream), 'utf8')
+        let userAll= JSON.parse(fs.readFileSync('./user.json'))
+        let userJoinStream = JSON.parse(fs.readFileSync('./userJoin.json'))
+        userAll = userAll.map((objAll)=>{
+            if(objAll.userRole !== 'admin') userJoinStream.map((obj)=>{
+                if(objAll.userName == obj.userName) objAll.coin += coin;
+            })
+            return objAll
+        })
+        fs.writeFileSync('user.json', JSON.stringify(userAll), 'utf8')
     },
     //dust in thr eyes
     dustInEyes : function(userThrows,userInWhich,costDustInEyes,chanceDustInEyes,func,channal){
