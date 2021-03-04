@@ -40,6 +40,8 @@ function onMessageHandler(chanal,userInfo,msg,self){
     let usInf = JSON.parse(JSON.stringify(userInfo).replace('user-id', 'userid'))
     cmds.createNewUser(usInf)
     cmds.accrualOfDust(userInfo,glVr.coin)
+    //https://static-cdn.jtvnw.net/emoticons/v1/302303601/2.0
+    //console.log(userInfo.emotes)
     //Ignore bot message
     if(self) return
     //Delete space
