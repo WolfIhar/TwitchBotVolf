@@ -84,8 +84,13 @@ module.exports = {
     addJoinerUser : function(nameUser){
         if( nameUser == 'Jin_Kat') return
         let userJoinStream = JSON.parse(fs.readFileSync('./userJoin.json'))
+        let userSearch = userJoinStream.find(value => value.userName == nameUser)
+        if(userSearch == undefined){
         userJoinStream.push({id:userJ ,userName: nameUser})
         userJ++
+        }
+        else
+        return
         fs.writeFileSync('userJoin.json', JSON.stringify(userJoinStream), 'utf8')
     },
     //User exit to stream

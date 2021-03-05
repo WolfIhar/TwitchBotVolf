@@ -1,3 +1,5 @@
+const { KeyObject } = require('crypto')
+
 const tmi = require('tmi.js'),
 fs = require('fs'),
 options = JSON.parse(fs.readFileSync('config.json')),
@@ -40,8 +42,9 @@ function onMessageHandler(chanal,userInfo,msg,self){
     let usInf = JSON.parse(JSON.stringify(userInfo).replace('user-id', 'userid'))
     cmds.createNewUser(usInf)
     cmds.accrualOfDust(userInfo,glVr.coin)
-    //https://static-cdn.jtvnw.net/emoticons/v1/302303601/2.0
-    //console.log(userInfo.emotes)
+
+    //https://static-cdn.jtvnw.net/emoticons/v1/{id}/2.0 // получение картинки 
+    //https://api.twitchemotes.com/api/v4/emotes?id={id} // получение имени 
     //Ignore bot message
     if(self) return
     //Delete space
@@ -60,13 +63,13 @@ function onMessageHandler(chanal,userInfo,msg,self){
 function doudleMessageHandler (chanal,usInf,commandName){
     switch(commandName[0]){
         case '!8ball':
-            client.say(chanal,ball(usInf.userName))
+            client.say(chanal,ball(usInf.username))
             break
         case '!swap':
-            client.say(chanal,cmds.exchengCoin(commandName[2],usInf.userName,commandName[1]))
+            client.say(chanal,cmds.exchengCoin(commandName[2],usInf.username,commandName[1]))
             break
         case '!spell':
-            cmds.dustInEyes(usInf.userName,commandName[1],glVr.costDustInEyes,glVr.chanceDustInEyes,client,chanal)
+            cmds.dustInEyes(usInf.username,commandName[1],glVr.costDustInEyes,glVr.chanceDustInEyes,client,chanal)
             break
     }
 }
