@@ -43,8 +43,6 @@ function onMessageHandler(chanal,userInfo,msg,self){
     cmds.createNewUser(usInf)
     cmds.accrualOfDust(userInfo,glVr.coin)
 
-    //https://static-cdn.jtvnw.net/emoticons/v1/{id}/2.0 // получение картинки 
-    //https://api.twitchemotes.com/api/v4/emotes?id={id} // получение имени 
     //Ignore bot message
     if(self) return
     //Delete space
