@@ -1,5 +1,4 @@
 const fs = require ('fs')
-let userJ = 0
 module.exports = {
     //Exchenge is coins
     exchengCoin : function (coin, userNameOne, userNameTwo) {
@@ -84,10 +83,9 @@ module.exports = {
     addJoinerUser : function(nameUser){
         if( nameUser == 'Jin_Kat') return
         let userJoinStream = JSON.parse(fs.readFileSync('./userJoin.json'))
-        let userSearch = userJoinStream.find(value => value.userName == nameUser)
+        let userSearch = userJoinStream.find(value => value == nameUser)
         if(userSearch == undefined){
-        userJoinStream.push({id:userJ ,userName: nameUser})
-        userJ++
+        userJoinStream.push(nameUser)
         }
         else
         return
@@ -97,9 +95,9 @@ module.exports = {
     removeExitingUser : function(nameUser){
         if( nameUser == 'Jin_Kat') return
         let userJoinStream = JSON.parse(fs.readFileSync('./userJoin.json'))
-        let userRemove = userJoinStream.find(value => value.userName == nameUser)
+        let userRemove = userJoinStream.find(value => value == nameUser)
         if(userRemove !== undefined)
-        userJoinStream.splice(userRemove.id,1)
+        userJoinStream.splice(userJoinStream.indexOf(userRemove),1)
         else return
 
         fs.writeFileSync('userJoin.json', JSON.stringify(userJoinStream), 'utf8')
@@ -110,7 +108,7 @@ module.exports = {
         let userJoinStream = JSON.parse(fs.readFileSync('./userJoin.json'))
         userAll = userAll.map((objAll)=>{
             if(objAll.userRole !== 'admin') userJoinStream.map((obj)=>{
-                if(objAll.userName == obj.userName) objAll.coin += coin;
+                if(objAll.userName == obj) objAll.coin += coin;
             })
             return objAll
         })
