@@ -144,6 +144,47 @@ module.exports = {
     ressetUserJoin : function (){
         let user = []
         fs.writeFileSync('userJoin.json', JSON.stringify(user), 'utf8')
+    },
+    ressetUserJoin : function (){
+        let user = []
+        fs.writeFileSync('userJoin.json', JSON.stringify(user), 'utf8')
+    },
+    // !ordergame ordering a game for stream
+    ordergame: (func,channal,userName,mess,glVr)=>{
+
+        let messs  = mess.filter((value,i)=>{return i != 0})
+        mess = messs
+        messs = ''
+        mess.forEach((item)=>{
+            messs = messs+' '+item
+          });
+        let user = JSON.parse(fs.readFileSync('./user.json'))
+        let orderGame  = JSON.parse(fs.readFileSync('./orderGame.json'))
+
+        userFInd = user.find(value => value.userName == userName)
+
+        if(userFInd == undefined) {func.say(channal,'Неизвестная ошибка! Попробуй еще раз <3'); return}
+        if(userFInd.coin < glVr.ordergame) {func.say(channal,`У вас не хватает волшебной пыли! Тебе нужно ${glVr.ordergame}. Проверь пыль !dust`); return}
+        else {
+            user[userFInd.id].coin -=glVr.ordergame
+            func.say(channal,`Волшебник @${userName} положил данныю карту в колоду :${messs}!`)
+            orderGame.push({game:messs, user:userName})
+        }
+
+        fs.writeFileSync('user.json', JSON.stringify(user), 'utf8')
+        fs.writeFileSync('orderGame.json', JSON.stringify(orderGame), 'utf8')
+
+    },
+    // !orderginfo ordering a game for stream
+    orderginfo:(func,channal)=>{
+        let orderGame  = JSON.parse(fs.readFileSync('./orderGame.json'))
+        let ordeG = ''
+        orderGame.forEach((item)=>{
+            ordeG = ordeG+', '+item.game
+          });
+        if(orderGame.length == 0 )func.say(channal,`Колода пуста :( `)
+        else
+        func.say(channal,`Какие игры в колоде: ${ordeG}`)
     }
 
     

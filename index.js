@@ -69,6 +69,8 @@ function doudleMessageHandler (chanal,usInf,commandName){
         case '!spell':
             cmds.dustInEyes(usInf.username,commandName[1],glVr.costDustInEyes,glVr.chanceDustInEyes,client,chanal)
             break
+        case '!ordergame':
+            cmds.ordergame(client,chanal,usInf.username,commandName,glVr)
     }
 }
 
@@ -79,6 +81,9 @@ function sindleMessageHandler (chanal,usInf,commandName){
             break
         case '!time':
             client.say(chanal,cmds.infoTime(time))
+            break
+        case '!orderginfo':
+            cmds.orderginfo(client,chanal)
             break
         default:
             let sCom = cmds.singleCommand(comands,commandName[0])

@@ -3,5 +3,6 @@
     "costDustInEyes": 400,
     "chanceDustInEyes": 30,
     "coin": 1,
-    "coinAccrual": 40
+    "coinAccrual": 40,
+    "ordergaame": 10000
 }
