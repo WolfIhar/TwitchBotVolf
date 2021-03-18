@@ -36,7 +36,7 @@
 {
     "nameComand":"!time",
     "use":false,
-    "message":"Сколько идет стрим"
+    "message":"Время жизни бота"
 },
 {
     "nameComand":"!spell",
@@ -50,7 +50,7 @@
 },
 {
     "nameComand":"!orderginfo",
-    "use":true,
+    "use":false,
     "message":"Посмотреть колоду с играми"
 },
 {

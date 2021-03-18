@@ -77,7 +77,7 @@ module.exports = {
     },
     // Infomation on time
     infoTime : function(time){
-        return `Стрим идет: 🕛 ${(time.hour < 9) ? "0" + time.hour : time.hour}:${(time.minutes < 9) ? "0" + time.minutes : time.minutes}:${(time.seconds < 9) ? "0" + time.seconds : time.seconds}`
+        return `Время жизни: 🕛 ${(time.hour < 9) ? "0" + time.hour : time.hour}:${(time.minutes < 9) ? "0" + time.minutes : time.minutes}:${(time.seconds < 9) ? "0" + time.seconds : time.seconds}`
     },
     // User went to stream
     addJoinerUser : function(nameUser){
