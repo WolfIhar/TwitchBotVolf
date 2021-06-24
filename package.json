@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/WolfIhar/TwitchBotVolf#readme",
   "dependencies": {
+    "socket.io": "^4.0.1",
+    "socket.io-client": "^4.0.1",
     "tmi.js": "^1.7.1"
   }
 }

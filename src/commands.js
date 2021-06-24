@@ -54,19 +54,6 @@ module.exports = {
         if(userFind.userRole == 'admin') return `@${userInfo.username} склонюсь перед тобой создатель TheIlluminati!`
         return `@${userFind.userName} у тебя ${userFind.coin} волжебной пыли PowerUpR`
     },
-    //Timer
-    getTime : function(time){
-        time.seconds += 1
-        if (time.seconds == 60) {
-            time.seconds = 0
-            time.minutes +=1
-        }
-        if (time.minutes == 60) {
-            time.minutes = 0
-            time.hour += 1
-        }
-        return time
-    },
     //Single command handler
     singleCommand : function(comandsArr,comand){
         
@@ -74,10 +61,6 @@ module.exports = {
         if(cmdFind == undefined) return ''
         if(cmdFind.use == false) return ''
         else return cmdFind.message
-    },
-    // Infomation on time
-    infoTime : function(time){
-        return `Время жизни: 🕛 ${(time.hour < 9) ? "0" + time.hour : time.hour}:${(time.minutes < 9) ? "0" + time.minutes : time.minutes}:${(time.seconds < 9) ? "0" + time.seconds : time.seconds}`
     },
     // User went to stream
     addJoinerUser : function(nameUser){

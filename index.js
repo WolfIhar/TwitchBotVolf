@@ -9,12 +9,8 @@ cmds = require('./src/commands'),
 glVr =JSON.parse(fs.readFileSync('globalVariables.json'))
 
 const client = new tmi.client(options)
-//Time
-var time = {
-    seconds: 0,
-    minutes: 0,
-    hour: 0
-}
+//Time time
+
 cmds.ressetUserJoin()
 //Connect to twitch
 client.connect().then((data)=>{
@@ -23,7 +19,6 @@ client.connect().then((data)=>{
     console.log(`${err}`)
 })
 
-setInterval(()=>time = cmds.getTime(time),1000)
 setInterval(()=>cmds.accrualPerTime(glVr.coinAccrual),(glVr.ticTime*60)*1000)
 
 
@@ -78,9 +73,6 @@ function sindleMessageHandler (chanal,usInf,commandName){
     switch(commandName[0]){
         case '!dust':
             client.say(chanal,cmds.infoDust(usInf))
-            break
-        case '!time':
-            client.say(chanal,cmds.infoTime(time))
             break
         case '!orderginfo':
             cmds.orderginfo(client,chanal)

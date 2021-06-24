@@ -34,11 +34,6 @@
     "message":"Проверка поличество волшебной пыли"
 },
 {
-    "nameComand":"!time",
-    "use":false,
-    "message":"Время жизни бота"
-},
-{
     "nameComand":"!spell",
     "use":true,
     "message":"Кастуй заклинание на жреца из чата! При успешном прочтении жреж будет атакован летучими мышами, а если все пойдет плохо, то ты! Споимость заклинания 400 волшебной пыли, время действия заклинания 5мин. [!spell ~имя пользователя~]"
@@ -56,6 +51,6 @@
 {
     "nameComand":"!help",
     "use":true,
-    "message":"Команды: !vk, !inst, !ds, !8ball, !swap, !dust, !time, !spell, !ordergame, !orderginfo"
+    "message":"Команды: !vk, !inst, !ds, !8ball, !swap, !dust, !spell, !ordergame, !orderginfo"
 }
 ]
