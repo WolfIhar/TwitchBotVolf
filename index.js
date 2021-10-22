@@ -1,4 +1,6 @@
 const { KeyObject } = require('crypto')
+const promise = require('promise')
+const fetch = require('node-fetch')
 
 const tmi = require('tmi.js'),
 fs = require('fs'),
@@ -10,6 +12,10 @@ glVr =JSON.parse(fs.readFileSync('globalVariables.json'))
 
 const client = new tmi.client(options)
 //Time time
+
+//url is search all game
+let urlGetAllGameSteam = 'http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=json'
+setInterval(()=>updateFileAllGameSteam(urlGetAllGameSteam),86400*1000)
 
 cmds.ressetUserJoin()
 //Connect to twitch
@@ -66,6 +72,12 @@ function doudleMessageHandler (chanal,usInf,commandName){
             break
         case '!ordergame':
             cmds.ordergame(client,chanal,usInf.username,commandName,glVr)
+            break
+        case '!infogame':
+            cmds.infoGame(client,chanal,usInf.username,commandName[1],commandName[2])
+            break
+        default:
+            client.say(chanal,`@usInf.username такой команды нет или ошибся! Проверь команду в списке !help`)
     }
 }
 
@@ -80,6 +92,17 @@ function sindleMessageHandler (chanal,usInf,commandName){
         default:
             let sCom = cmds.singleCommand(comands,commandName[0])
             if('' !== sCom) client.say(chanal,sCom)
+            client.say(chanal,`@${usInf.username} такой команды нет или ошибся! Проверь команду в списке !help`)
             break
     }
+}
+
+//update is game file
+function updateFileAllGameSteam(url){
+    let date = new Date();
+        date.setSeconds(date.getSeconds() + 70);
+    console.log('Update file games: '+date)
+    let response = fetch(url)
+    .then(response=>response.json())
+    .then(json=>fs.writeFileSync('allGameSteam.json',JSON.stringify(json.applist.apps),'utf-8'))
 }

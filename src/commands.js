@@ -1,4 +1,6 @@
 const fs = require ('fs')
+const fetch = require('node-fetch')
+
 module.exports = {
     //Exchenge is coins
     exchengCoin : function (coin, userNameOne, userNameTwo) {
@@ -168,6 +170,31 @@ module.exports = {
         if(orderGame.length == 0 )func.say(channal,`Колода пуста :( `)
         else
         func.say(channal,`Какие игры в колоде: ${ordeG}`)
+    },
+    // !infogame
+    infoGame:(func,channal,username,game,region)=>{
+        region = typeof region !== 'undefined' ? region : 'RU';
+        let gamesList = JSON.parse(fs.readFileSync('./allGameSteam.json'))
+        g = gamesList.find(res=>res.name.toLowerCase() == game.toLowerCase())
+        console.log(game)
+        console.log(g)
+        if( typeof g == 'undefined') {
+            func.say(channal,`@${username} я не смог найти эту игру:( Проверьте верно ли вы указали название игры. Сокрощения в поиске не допустимы! Нужно вводить полное название игры!`)
+             return
+        }
+        fetch(`https://store.steampowered.com/api/appdetails?appids=${g.appid}&cc=${region}`)
+        .then(async res=>await res.json())
+        .then(async res=>{
+            if (await res[g.appid].data.is_free == true) {
+                func.say(channal,`@${username} '${res.name}' - игра бесплатная`)
+                return
+            }
+            if( await typeof res[g.appid].data.price_overview == 'undefined'){
+                func.say(channal,`@${username} '${res[g.appid].data.name}' - игра будет платная по цену не могу определить `)
+                return                
+            }
+            await func.say(channal,`@${username} '${res[g.appid].data.name}' - стоимость игры в ${region} регионе : ${res[g.appid].data.price_overview.final_formatted}`)
+        })
     }
 
     
